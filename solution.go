@@ -1,12 +1,34 @@
 package square
 
-// Define custom int type to hold sides number and update CalcSquare signature by replacing #yourTypeNameHere#
+import "math"
 
-// Define constants to represent 0, 3 and 4 sides.  Test uses mnemos: SidesTriangle(==3), SidesSquare(==4), SidesCircle(==0)
-// it's like:
-// CalcSquare(10.0, SidesTriangle)
-// CalcSquare(10.0, SidesSquare)
-// CalcSquare(10.0, SidesCircle)
+// Sides represents two-dimensional shape.
+type Sides int
 
-func CalcSquare(sideLen float64, sidesNum #yourTypeNameHere#) float64 {
+// Two-dimensional shapes.
+const (
+	SidesCircle Sides = iota
+	_
+	_
+	SidesTriangle
+	SidesSquare
+)
+
+// CalcSquare calculates area of three-dimensional object. sideLen is the side
+// length of regular polygon. In the case of cicrle it is the radius length. For
+// unsupported shapes it returns 0.
+func CalcSquare(sideLen float64, sidesNum Sides) float64 {
+	if sideLen <= 0 {
+		return 0
+	}
+	switch sidesNum {
+	case SidesCircle:
+		return sideLen * sideLen * math.Pi
+	case SidesTriangle:
+		return sideLen * sideLen / 4 * math.Sqrt(3)
+	case SidesSquare:
+		return sideLen * sideLen
+	default:
+		return 0
+	}
 }
